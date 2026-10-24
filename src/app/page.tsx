@@ -336,10 +336,10 @@ export default function Home() {
   // ===== Filtered Manage Items =====
   const filteredManageItems = manageSearch
     ? allItems.filter(
-        (i) =>
-          i.name.toLowerCase().includes(manageSearch.toLowerCase()) ||
-          i.category.toLowerCase().includes(manageSearch.toLowerCase())
-      )
+      (i) =>
+        i.name.toLowerCase().includes(manageSearch.toLowerCase()) ||
+        i.category.toLowerCase().includes(manageSearch.toLowerCase())
+    )
     : allItems;
 
   // ===== Format Price =====
@@ -382,7 +382,10 @@ export default function Home() {
 
       {/* Header */}
       <header className="app-header">
-        <h1 className="app-logo">⚡ Samelix</h1>
+        <h1 className="app-logo">
+          <span className="logo-sam">Sam</span>
+          <span className="logo-elix">Elix</span>
+        </h1>
         <p className="app-subtitle">
           Supplies Pricelist — Search, Order & Manage
         </p>
@@ -455,9 +458,8 @@ export default function Home() {
                   {searchResults.slice(0, 15).map((item, idx) => (
                     <div
                       key={item.id}
-                      className={`autocomplete-item ${
-                        idx === highlightIndex ? "highlighted" : ""
-                      }`}
+                      className={`autocomplete-item ${idx === highlightIndex ? "highlighted" : ""
+                        }`}
                       onClick={() => {
                         addToCart(item);
                         setShowDropdown(false);
@@ -503,9 +505,8 @@ export default function Home() {
               style={{ marginTop: 16 }}
             >
               <button
-                className={`category-chip ${
-                  selectedCategory === "all" ? "active" : ""
-                }`}
+                className={`category-chip ${selectedCategory === "all" ? "active" : ""
+                  }`}
                 onClick={() =>
                   setSelectedCategory((prev) =>
                     prev === "all" ? "" : "all"
@@ -528,9 +529,8 @@ export default function Home() {
                 return (
                   <button
                     key={cat}
-                    className={`category-chip ${
-                      selectedCategory === cat ? "active" : ""
-                    }`}
+                    className={`category-chip ${selectedCategory === cat ? "active" : ""
+                      }`}
                     onClick={() =>
                       setSelectedCategory((prev) =>
                         prev === cat ? "" : cat
@@ -556,11 +556,10 @@ export default function Home() {
                     {searchQuery ? "🔍" : selectedCategory ? "📂" : "📦"}
                   </span>
                   {searchQuery
-                    ? `Results for "${searchQuery}"${
-                        selectedCategory && selectedCategory !== "all"
-                          ? ` in ${selectedCategory}`
-                          : ""
-                      }`
+                    ? `Results for "${searchQuery}"${selectedCategory && selectedCategory !== "all"
+                      ? ` in ${selectedCategory}`
+                      : ""
+                    }`
                     : selectedCategory
                       ? selectedCategory === "all"
                         ? "Browse Items — All Items"
@@ -601,9 +600,8 @@ export default function Home() {
                   {searchResults.map((item) => (
                     <div
                       key={item.id}
-                      className={`item-card ${
-                        isInCart(item.id) ? "in-cart" : ""
-                      }`}
+                      className={`item-card ${isInCart(item.id) ? "in-cart" : ""
+                        }`}
                       onClick={() => addToCart(item)}
                     >
                       <div className="item-info">
@@ -628,16 +626,14 @@ export default function Home() {
                         </div>
                       </div>
                       <span
-                        className={`item-price ${
-                          item.price === null ? "no-price" : ""
-                        }`}
+                        className={`item-price ${item.price === null ? "no-price" : ""
+                          }`}
                       >
                         {formatPrice(item.price)}
                       </span>
                       <button
-                        className={`item-add-btn ${
-                          isInCart(item.id) ? "remove" : ""
-                        }`}
+                        className={`item-add-btn ${isInCart(item.id) ? "remove" : ""
+                          }`}
                         onClick={(e) => {
                           e.stopPropagation();
                           if (isInCart(item.id)) {

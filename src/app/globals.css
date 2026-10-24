@@ -1,38 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  /* Color palette - Deep navy & vibrant accents */
-  --bg-primary: #0a0e1a;
-  --bg-secondary: #111827;
-  --bg-card: #1a2035;
-  --bg-card-hover: #1f2847;
-  --bg-input: #151b2e;
-  --bg-glass: rgba(26, 32, 53, 0.7);
+  /* Brand */
+  --brand-blue: #00285c;
+  --brand-yellow: #febf12;
 
-  --text-primary: #f0f4ff;
-  --text-secondary: #94a3c4;
-  --text-muted: #5e6d8d;
-  --text-accent: #818cf8;
+  /* Surfaces */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f6fb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #eef3fb;
+  --bg-input: #f4f7fc;
+  --bg-glass: rgba(255, 255, 255, 0.85);
 
-  --accent-primary: #6366f1;
-  --accent-primary-hover: #818cf8;
-  --accent-secondary: #8b5cf6;
-  --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
-  --accent-gradient-warm: linear-gradient(135deg, #f472b6, #fb923c);
-  --accent-success: #34d399;
-  --accent-success-bg: rgba(52, 211, 153, 0.1);
-  --accent-danger: #f87171;
-  --accent-danger-bg: rgba(248, 113, 113, 0.1);
-  --accent-warning: #fbbf24;
+  /* Text */
+  --text-primary: #00285c;
+  --text-secondary: #43587c;
+  --text-muted: #6b7f9f;
+  --text-accent: #00285c;
 
-  --border-color: rgba(99, 102, 241, 0.15);
-  --border-subtle: rgba(255, 255, 255, 0.06);
+  /* Accent */
+  --accent-primary: #febf12;
+  --accent-primary-hover: #e5aa00;
+  --accent-secondary: #ffd45e;
+  --accent-gradient: linear-gradient(135deg, #febf12, #ffd45e);
+  --accent-gradient-warm: linear-gradient(135deg, #febf12, #fb923c);
+  --on-accent: #00285c;
 
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.15);
-  --shadow-glow-accent: 0 0 40px rgba(99, 102, 241, 0.25);
+  --accent-success: #15803d;
+  --accent-success-bg: rgba(21, 128, 61, 0.08);
+  --accent-danger: #dc2626;
+  --accent-danger-bg: rgba(220, 38, 38, 0.08);
+  --accent-warning: #d97706;
+
+  --border-color: rgba(0, 40, 92, 0.16);
+  --border-subtle: rgba(0, 40, 92, 0.08);
+
+  --shadow-sm: 0 2px 8px rgba(0, 40, 92, 0.08);
+  --shadow-md: 0 4px 20px rgba(0, 40, 92, 0.10);
+  --shadow-lg: 0 8px 40px rgba(0, 40, 92, 0.16);
+  --shadow-glow: 0 0 30px rgba(254, 191, 18, 0.20);
+  --shadow-glow-accent: 0 0 40px rgba(254, 191, 18, 0.30);
 
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -52,7 +60,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   background: var(--bg-primary);
   color: var(--text-primary);
@@ -63,17 +72,19 @@ html, body {
 
 body::before {
   content: '';
+  display: none;
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.12), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139, 92, 246, 0.08), transparent),
-    radial-gradient(ellipse 50% 30% at 10% 60%, rgba(244, 114, 182, 0.06), transparent);
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 74, 173, 0.45), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0, 40, 92, 0.6), transparent),
+    radial-gradient(ellipse 50% 30% at 10% 60%, rgba(254, 191, 18, 0.05), transparent);
   pointer-events: none;
   z-index: 0;
 }
 
-#__next, main {
+#__next,
+main {
   position: relative;
   z-index: 1;
 }
@@ -93,14 +104,20 @@ body::before {
 }
 
 .app-logo {
-  font-size: 2.5rem;
+  font-size: 3.25rem;
   font-weight: 900;
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.03em;
-  margin-bottom: 8px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.logo-sam {
+  color: var(--brand-blue);
+}
+
+.logo-elix {
+  color: var(--brand-yellow);
 }
 
 .app-subtitle {
@@ -212,7 +229,7 @@ body::before {
   box-shadow: var(--shadow-glow), 0 0 0 4px rgba(99, 102, 241, 0.1);
 }
 
-.search-input:focus ~ .search-icon {
+.search-input:focus~.search-icon {
   color: var(--accent-primary);
 }
 
@@ -463,6 +480,7 @@ body::before {
     opacity: 0;
     transform: translateY(-10px) scale(0.97);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -933,6 +951,7 @@ body::before {
     opacity: 0;
     transform: translateX(40px) scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: translateX(0) scale(1);
@@ -994,8 +1013,13 @@ body::before {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .modal {
@@ -1014,6 +1038,7 @@ body::before {
     opacity: 0;
     transform: scale(0.92) translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
@@ -1077,7 +1102,9 @@ body::before {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ========== Pagination ========== */
@@ -1162,6 +1189,7 @@ body::before {
     opacity: 0;
     transform: translateY(-8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1208,10 +1236,311 @@ body::before {
 
 /* ========== Highlight animation ========== */
 @keyframes pulse {
-  0%, 100% { box-shadow: none; }
-  50% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
+
+  0%,
+  100% {
+    box-shadow: none;
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  }
 }
 
 .pulse {
   animation: pulse 2s ease infinite;
+}
+
+/* ========== Brand overrides (light theme) ========== */
+
+/* Navy text on yellow */
+.panel-badge,
+.category-chip.active,
+.item-add-btn:not(.remove),
+.qty-btn:hover,
+.btn-primary,
+.tab.active,
+.action-btn:hover:not(.danger),
+.page-btn.active {
+  color: var(--on-accent);
+}
+
+/* Prices in navy (yellow text is unreadable on white) */
+.item-price,
+.autocomplete-item-price,
+.cart-item-price {
+  color: var(--brand-blue);
+}
+
+/* Gradient text was yellow-on-white; use solid navy */
+.stat-value,
+.cart-total-value {
+  background: none;
+  -webkit-text-fill-color: var(--brand-blue);
+  color: var(--brand-blue);
+}
+
+/* Category tags */
+.item-category-tag {
+  background: rgba(0, 40, 92, 0.07);
+  color: var(--brand-blue);
+}
+
+.item-category-tag:hover {
+  background: rgba(254, 191, 18, 0.4);
+  color: var(--brand-blue);
+}
+
+/* Search match highlight */
+.autocomplete-item-name mark {
+  background: rgba(254, 191, 18, 0.5);
+  color: var(--brand-blue);
+}
+
+/* Editable cells in Manage table */
+.manage-table .editable:hover {
+  color: var(--text-secondary);
+  text-decoration: underline;
+}
+
+/* "Clear filter" chip */
+.btn-clear-filter {
+  background: rgba(0, 40, 92, 0.05);
+}
+
+/* Toasts need solid backgrounds on white */
+.toast.success {
+  background: #ecfdf3;
+  color: #15803d;
+}
+
+.toast.error {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.toast.info {
+  background: #fff8e1;
+  color: var(--brand-blue);
+  border-color: rgba(254, 191, 18, 0.6);
+}
+
+/* Visible keyboard focus */
+button:focus-visible,
+.search-input:focus-visible,
+.form-input:focus-visible,
+.form-select:focus-visible {
+  outline: 2px solid var(--brand-blue);
+  outline-offset: 2px;
+}
+
+/* ========== Responsive refinements ========== */
+
+/* Tablet and below: single column */
+@media (max-width: 1024px) {
+  .app-container {
+    padding: 20px;
+  }
+
+  .cart-panel {
+    position: static;
+  }
+
+  /* sticky is awkward when stacked */
+}
+
+/* Phones and small tablets */
+@media (max-width: 768px) {
+  .app-logo {
+    font-size: 2.25rem;
+  }
+
+  .app-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .tab {
+    padding: 10px 8px;
+    font-size: 0.82rem;
+    gap: 6px;
+  }
+
+  .stat-value {
+    font-size: 1.4rem;
+  }
+
+  .stat-card {
+    padding: 14px 10px;
+  }
+
+  /* 16px+ stops iOS Safari from zooming on focus */
+  .search-input {
+    font-size: 1rem;
+    padding: 14px 16px 14px 46px;
+  }
+
+  .manage-search,
+  .form-input,
+  .form-select,
+  .inline-edit {
+    font-size: 1rem;
+  }
+
+  /* Category chips: one scrollable row instead of a tall wrapped block */
+  .category-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .category-chip {
+    flex-shrink: 0;
+  }
+
+  .panel-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .panel-title {
+    font-size: 1rem;
+  }
+
+  .results-grid {
+    max-height: 70vh;
+  }
+
+  .item-card {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .item-card:hover {
+    transform: none;
+  }
+
+  .item-name {
+    white-space: normal;
+  }
+
+  .item-price {
+    font-size: 1rem;
+  }
+
+  .item-add-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* bigger touch target */
+
+  /* Cart rows: name on its own line, controls below */
+  .cart-item {
+    flex-wrap: wrap;
+  }
+
+  .cart-item-name {
+    flex-basis: 100%;
+    white-space: normal;
+  }
+
+  .cart-item-price {
+    margin-left: auto;
+  }
+
+  .qty-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Manage table scrolls sideways instead of squashing */
+  .manage-table {
+    min-width: 640px;
+  }
+
+  .manage-grid {
+    max-height: 60vh;
+  }
+
+  .action-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Toasts span the screen width */
+  .toast-container {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .toast {
+    min-width: 0;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .app-container {
+    padding: 12px;
+  }
+
+  .app-header {
+    padding: 16px 0 14px;
+  }
+
+  .app-logo {
+    font-size: 1.9rem;
+  }
+
+  .panel {
+    padding: 14px;
+  }
+
+  .stats-bar {
+    gap: 8px;
+  }
+
+  .tab {
+    font-size: 0.78rem;
+  }
+
+  .cart-total-value {
+    font-size: 1.35rem;
+  }
+}
+
+/* Let grid columns shrink below their content's width */
+.main-grid {
+  grid-template-columns: minmax(0, 1fr) 420px;
+}
+
+@media (max-width: 1024px) {
+  .main-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.main-grid>*,
+.panel {
+  min-width: 0;
+}
+
+.results-grid,
+.cart-items {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.category-filters {
+  max-width: 100%;
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: clip;
 }
