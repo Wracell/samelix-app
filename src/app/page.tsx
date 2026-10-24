@@ -259,7 +259,8 @@ export default function Home() {
         setEditingId(null);
         showToast("Item updated & saved to CSV!", "success");
       } else {
-        showToast("Failed to update item", "error");
+        const errData = await res.json().catch(() => null);
+        showToast(errData?.error || "Failed to update item", "error");
       }
     } catch {
       showToast("Network error", "error");
@@ -280,7 +281,8 @@ export default function Home() {
         setCart((prev) => prev.filter((c) => c.item.id !== id));
         showToast("Item deleted from CSV", "success");
       } else {
-        showToast("Failed to delete item", "error");
+        const errData = await res.json().catch(() => null);
+        showToast(errData?.error || "Failed to delete item", "error");
       }
     } catch {
       showToast("Network error", "error");
@@ -323,7 +325,8 @@ export default function Home() {
         setShowAddForm(false);
         showToast(`"${data.item.name}" added to CSV!`, "success");
       } else {
-        showToast("Failed to add item", "error");
+        const errData = await res.json().catch(() => null);
+        showToast(errData?.error || "Failed to add item", "error");
       }
     } catch {
       showToast("Network error", "error");

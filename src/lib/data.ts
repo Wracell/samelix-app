@@ -68,7 +68,9 @@ export async function readItems(): Promise<Item[]> {
       const existing = blobs.blobs.find((b) => b.pathname === BLOB_PATH);
 
       if (existing) {
-        const response = await fetch(existing.url);
+        const response = await fetch(`${existing.url}?t=${Date.now()}`, {
+          cache: "no-store",
+        });
         const csvContent = await response.text();
         return parseCSV(csvContent);
       }
@@ -79,6 +81,7 @@ export async function readItems(): Promise<Item[]> {
         access: "public",
         contentType: "text/csv",
         addRandomSuffix: false,
+        allowOverwrite: true,
       });
       return parseCSV(localCSV);
     } catch (error) {
@@ -98,17 +101,25 @@ export async function readItems(): Promise<Item[]> {
 export async function writeItems(items: Item[]): Promise<void> {
   const csv = serializeCSV(items);
 
+  if (process.env.VERCEL && !process.env.BLOB_READ_WRITE_TOKEN) {
+    throw new Error(
+      "BLOB_READ_WRITE_TOKEN is not configured. Please create and connect a Vercel Blob store in your Vercel project dashboard."
+    );
+  }
+
   if (isVercel()) {
     try {
-      // Delete old blob first, then upload new one
       await put(BLOB_PATH, csv, {
         access: "public",
         contentType: "text/csv",
         addRandomSuffix: false,
+        allowOverwrite: true,
       });
     } catch (error) {
       console.error("Blob write error:", error);
-      throw new Error("Failed to save to Vercel Blob storage");
+      throw new Error(
+        `Failed to save to Vercel Blob storage: ${error instanceof Error ? error.message : String(error)}`
+      );
     }
   } else {
     // Local development: write to filesystem
