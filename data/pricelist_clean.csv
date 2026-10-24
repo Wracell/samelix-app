@@ -1,4 +1,4 @@
-﻿id,name,category,unit,price,pack_price,pack_qty,aliases,source_row,needs_review
+id,name,category,unit,price,pack_price,pack_qty,aliases,source_row,needs_review
 1,Genius Pad - GRADE 1,Papers / Notebooks,piece,13,,,,3,
 2,Genius Pad - GRADE 2,Papers / Notebooks,piece,13,,,,4,
 3,Genius Pad - GRADE 3,Papers / Notebooks,piece,13,,,,5,
@@ -281,3 +281,4 @@
 280,Push Pins Box,Misc. Items,piece,25,,,,371,
 281,Stainless Steel Whistle,Misc. Items,piece,25,,,,372,
 282,Record Book,Papers / Notebooks,piece,50,,,,373,
+283,Test Marker,Adhesives,piece,25,,,,374,

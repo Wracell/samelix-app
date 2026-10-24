@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Samelix — Supplies Pricelist App
 
-## Getting Started
+A price lookup, ordering, and inventory management tool for school/office supplies. Built with Next.js and deployable on Vercel with persistent Blob storage.
 
-First, run the development server:
+## Features
+
+- 🔍 **Instant Search** — Type item names with autocomplete dropdown, keyboard navigation (↑↓ + Enter)
+- 🛒 **Order Builder** — Add items to cart, adjust quantities, see running total, copy order to clipboard
+- 🏷️ **Category Filters** — Filter by 7 categories (Papers, Folders, Pens, Adhesives, etc.)
+- ✏️ **Inline Editing** — Click any item name/price in the Manage tab to edit it
+- ➕ **Add New Items** — Form to add items with name, price, category, unit
+- 🗑️ **Delete Items** — Remove items from the inventory
+- 💾 **CSV Persistence** — All changes save back to the CSV file
+- ☁️ **Vercel Ready** — Uses Vercel Blob for persistent storage in production
+
+## Getting Started (Local)
 
 ```bash
+cd samelix-app
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy to Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Step 1: Push to GitHub
+```bash
+cd samelix-app
+git init
+git add .
+git commit -m "Initial commit - Samelix Supplies Pricelist App"
+git remote add origin https://github.com/YOUR_USERNAME/samelix.git
+git push -u origin main
+```
 
-## Learn More
+### Step 2: Deploy on Vercel
+1. Go to [vercel.com](https://vercel.com) → **New Project**
+2. Import your GitHub repo
+3. Vercel auto-detects Next.js — click **Deploy**
 
-To learn more about Next.js, take a look at the following resources:
+### Step 3: Set Up Blob Storage (for persistent edits)
+1. In your Vercel project dashboard → **Storage** tab
+2. Click **Create** → **Blob**
+3. Follow the prompts — Vercel automatically adds `BLOB_READ_WRITE_TOKEN` to your project env vars
+4. **Redeploy** the project (or it picks up on next deploy)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> Without Blob storage, the app still works for price lookups but item edits won't persist across deployments.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tech Stack
 
-## Deploy on Vercel
+- **Next.js 16** (App Router)
+- **Vercel Blob** (cloud CSV storage)
+- **PapaParse** (CSV parsing/serialization)
+- **Vanilla CSS** (dark theme with glassmorphism)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+samelix-app/
+├── data/
+│   └── pricelist_clean.csv    # 282 supply items
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   └── items/         # REST API routes
+│   │   │       ├── route.ts          # GET /api/items (search/list)
+│   │   │       ├── [id]/route.ts     # PUT/DELETE /api/items/:id
+│   │   │       └── add/route.ts      # POST /api/items/add
+│   │   ├── globals.css        # Design system
+│   │   ├── layout.tsx         # Root layout + SEO
+│   │   └── page.tsx           # Main app (search, cart, manage)
+│   └── lib/
+│       └── data.ts            # Data layer (local FS + Vercel Blob)
+└── package.json
+```

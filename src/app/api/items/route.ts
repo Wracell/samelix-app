@@ -7,12 +7,19 @@ export async function GET(request: NextRequest) {
   const category = searchParams.get("category") || "";
   const all = searchParams.get("all") === "true";
 
-  const items = readItems();
+  const items = await readItems();
+
+  const isCategoryMatch = (itemCategory: string, targetCategory: string) => {
+    if (!targetCategory || targetCategory.toLowerCase() === "all") return true;
+    const catA = (itemCategory || "").toLowerCase().trim();
+    const catB = targetCategory.toLowerCase().trim();
+    return catA === catB || catA.startsWith(catB) || catB.startsWith(catA);
+  };
 
   if (all) {
     let filtered = items;
-    if (category) {
-      filtered = filtered.filter((i) => i.category === category);
+    if (category && category.toLowerCase() !== "all") {
+      filtered = filtered.filter((i) => isCategoryMatch(i.category, category));
     }
     return NextResponse.json({
       items: filtered,
@@ -23,13 +30,26 @@ export async function GET(request: NextRequest) {
 
   if (query) {
     let results = searchItems(query, items);
-    if (category) {
-      results = results.filter((i) => i.category === category);
+    if (category && category.toLowerCase() !== "all") {
+      results = results.filter((i) => isCategoryMatch(i.category, category));
     }
     return NextResponse.json({
       items: results,
       categories: getCategories(items),
       total: results.length,
+    });
+  }
+
+  if (category) {
+    const filtered =
+      category.toLowerCase() === "all"
+        ? items
+        : items.filter((i) => isCategoryMatch(i.category, category));
+
+    return NextResponse.json({
+      items: filtered,
+      categories: getCategories(items),
+      total: filtered.length,
     });
   }
 

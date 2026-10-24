@@ -9,7 +9,7 @@ export async function PUT(
   const itemId = parseInt(id);
   const body = await request.json();
 
-  const items = readItems();
+  const items = await readItems();
   const index = items.findIndex((i) => i.id === itemId);
 
   if (index === -1) {
@@ -24,7 +24,7 @@ export async function PUT(
   if (body.pack_price !== undefined) items[index].pack_price = body.pack_price;
   if (body.pack_qty !== undefined) items[index].pack_qty = body.pack_qty;
 
-  writeItems(items);
+  await writeItems(items);
 
   return NextResponse.json({ item: items[index], message: "Item updated" });
 }
@@ -36,7 +36,7 @@ export async function DELETE(
   const { id } = await params;
   const itemId = parseInt(id);
 
-  const items = readItems();
+  const items = await readItems();
   const index = items.findIndex((i) => i.id === itemId);
 
   if (index === -1) {
@@ -44,7 +44,7 @@ export async function DELETE(
   }
 
   items.splice(index, 1);
-  writeItems(items);
+  await writeItems(items);
 
   return NextResponse.json({ message: "Item deleted" });
 }

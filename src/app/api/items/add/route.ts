@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const items = readItems();
+  const items = await readItems();
   const maxId = Math.max(...items.map((i) => i.id), 0);
   const maxSourceRow = Math.max(...items.map((i) => i.source_row), 0);
 
@@ -29,7 +29,10 @@ export async function POST(request: NextRequest) {
   };
 
   items.push(newItem);
-  writeItems(items);
+  await writeItems(items);
 
-  return NextResponse.json({ item: newItem, message: "Item added" }, { status: 201 });
+  return NextResponse.json(
+    { item: newItem, message: "Item added" },
+    { status: 201 }
+  );
 }
